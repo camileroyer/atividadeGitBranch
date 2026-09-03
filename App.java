@@ -24,7 +24,7 @@ public class App {
                     //cadastrarLivro();
                     break;
                 case 2:
-                    //cadastrarCd();
+                    cadastrarCd();
                     break;
                 case 3:
                     cadastrarDvd();
@@ -52,6 +52,24 @@ public class App {
         System.out.println("[4] Cadastrar revista");
         System.out.println("[5] Pesquisar por item específico");
         System.out.println("[6] Pesquisar por ID");
+    }
+
+    private void cadastrarCd() {
+        System.out.println("=====================");
+        System.out.println("Cadastrar um CD: ");
+        System.out.print("Digite o nome: ");
+        String nome = entrada.nextLine();
+        System.out.print("Digite o gênero musical: ");
+        String generoMusical = entrada.nextLine();
+        System.out.print("Digite a quantidade de faixas: ");
+        int quantidadeFaixas = entrada.nextInt();
+        entrada.nextLine();
+        String[] faixas = new String[quantidadeFaixas];
+        for (int i = 0; i < quantidadeFaixas; i++) {
+            System.out.print("Digite o nome da faixa " + (i + 1) + ": ");
+            faixas[i] = entrada.nextLine();
+        }
+        Cd novoCd = new Cd(nome, generoMusical, faixas);
     }
 
     private void cadastrarDvd() {
