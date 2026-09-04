@@ -26,4 +26,14 @@ public class Cd extends Item {
     public void setFaixas(String[] faixas) {
         this.faixas = faixas;
     }
+
+@Override
+public String toString() {
+    return "Cd {" +
+           "ID=" + getId() +
+           ", Nome='" + getNome() + '\'' +
+           ", Gênero Musical='" + generoMusical + '\'' +
+           ", Faixas=" + java.util.Arrays.toString(faixas) +
+           '}';
+}
 }

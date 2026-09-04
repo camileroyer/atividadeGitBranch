@@ -13,4 +13,20 @@ public class Dvd extends Item {
     public String getTipo() { return tipo; }
     public String getDescricao() {return descricao; }
     
+  
+@Override
+public String toString() {
+    return "Dvd {" +
+           "ID=" + getId() +
+           ", Nome='" + getNome() + '\'' +
+           ", Data de Aquisição=" + getDataAquisicao() +
+           ", Tipo='" + tipo + '\'' +
+           ", Descrição='" + descricao + '\'' +
+           ", Autores=" + getAutores() +
+           '}';
 }
+}
+
+   
+
+

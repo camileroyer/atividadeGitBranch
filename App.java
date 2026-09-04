@@ -4,10 +4,15 @@ public class App {
     private Scanner entrada;
     private ArrayList<Dvd> listaDvd;
     private ArrayList<Revista> listaRevista;
+    private ArrayList<Cd> listaCd;
+    private ArrayList<Livro> listaLivro;
 
     public App() {
         entrada = new Scanner(System.in);
         listaRevista = new ArrayList<Revista>();
+        listaCd = new ArrayList<Cd>();
+        listaDvd = new ArrayList<Dvd>();
+        listaLivro = new ArrayList<Livro>();
     }
 
     public void executar() {
@@ -23,7 +28,7 @@ public class App {
                 case 0:
                     break;
                 case 1:
-                    //cadastrarLivro();
+                    cadastrarLivro();
                     break;
                 case 2:
                     cadastrarCd();
@@ -38,7 +43,12 @@ public class App {
                     pesquisarRevistaPorAssunto();
                     break;
                 case 6:
-                    //pesquisarID()
+                    pesquisarID();
+                    break;
+                case 7:
+                    listarItens();
+                    break;
+
                 default:
                     System.out.println("=====================");
                     System.out.println("Opcao invalida. Redigite, por favor.");
@@ -54,7 +64,9 @@ public class App {
         System.out.println("[3] Cadastrar DVD");
         System.out.println("[4] Cadastrar revista");
         System.out.println("[5] Pesquisar revista por assunto");
-        System.out.println("[6] Pesquisar por ID");
+        System.out.println("[6] Pesquisar item por ID");
+        System.out.println("[7] Ver listas");
+
     }
 
    private void cadastrarCd() {
@@ -76,6 +88,48 @@ public class App {
             faixas[i] = entrada.nextLine();
     }
     Cd novoCd = new Cd(id, nome, generoMusical, faixas);
+    listaCd.add(novoCd);
+}
+
+    private void listarItens() {
+    System.out.println("=====================");
+    System.out.println("LISTA GERAL:");
+
+    System.out.println("\nRevistas:");
+    if (listaRevista.isEmpty()) {
+        System.out.println("Nenhuma revista cadastrada.");
+    } else {
+        for (Revista revista : listaRevista) {
+            System.out.println(revista);
+        }
+    }
+
+    System.out.println("\nLivros:");
+    if (listaLivro.isEmpty()) {
+        System.out.println("Nenhum livro cadastrado.");
+    } else {
+        for (Livro livro : listaLivro) {
+            System.out.println(livro);
+
+        }
+    }
+    System.out.println("\nDvds:");
+    if (listaDvd.isEmpty()) {
+        System.out.println("Nenhum DVD cadastrado.");
+    } else {
+        for (Dvd dvd : listaDvd) {
+            System.out.println(dvd);
+        }
+    }
+
+    System.out.println("\nCds:");
+    if (listaCd.isEmpty()) {
+        System.out.println("Nenhum CD cadastrado.");
+    } else {
+        for (Cd cd : listaCd) {
+            System.out.println(cd);
+        }
+    }
 }
 
     private void cadastrarDvd() {
@@ -108,6 +162,94 @@ public class App {
     System.out.println("=====================");
     System.out.println("DVD cadastrado com sucesso!");
     }
+
+    private void cadastrarLivro() {
+    
+        System.out.println("=====================");
+        System.out.println("Cadastrar um Livro: ");
+        System.out.print("Digite o ID: ");
+    int id = entrada.nextInt();
+    entrada.nextLine();
+    
+        System.out.print("Digite o nome: ");
+        String nome = entrada.nextLine();
+        System.out.print("Digite a data de aquisição: ");
+    int dataAquisicao = entrada.nextInt();
+    entrada.nextLine();
+
+        System.out.print("Digite a editora: ");
+        String editora = entrada.nextLine();
+        System.out.print("Digite o ano de publicação: ");
+    int anoPublicacao = entrada.nextInt();
+    entrada.nextLine();
+
+    Livro novoLivro = new Livro(id, nome, dataAquisicao, editora, anoPublicacao);
+
+    System.out.println("\n Cadastro dos Autores: ");
+    while (true) {
+        System.out.print("Digite o nome de um autor (ENTER para finalizar): ");
+        String autor = entrada.nextLine();
+        if (autor.trim().isEmpty()) {
+            break;
+        }
+        novoLivro.adicionarAutor(autor);
+    }
+
+    listaLivro.add(novoLivro);
+    System.out.println("=====================");
+    System.out.println("Livro cadastrado com sucesso!");
+}
+
+    private void pesquisarID() {
+    System.out.println("=====================");
+    System.out.print("Digite o ID que deseja pesquisar: ");
+    int idBuscado = entrada.nextInt();
+    entrada.nextLine();
+
+    Item encontrado = null;
+
+    for (Livro livro : listaLivro) {
+        if (livro.getId() == idBuscado) {
+            encontrado = livro;
+            break;
+        }
+    }
+
+    if (encontrado == null) {
+        for (Cd cd : listaCd) {
+            if (cd.getId() == idBuscado) {
+                encontrado = cd;
+                break;
+            }
+        }
+    }
+
+    if (encontrado == null) {
+        for (Dvd dvd : listaDvd) {
+            if (dvd.getId() == idBuscado) {
+                encontrado = dvd;
+                break;
+            }
+        }
+    }
+
+     if (encontrado == null) {
+        for (Revista revista : listaRevista) {
+            if (revista.getId() == idBuscado) {
+                encontrado = revista;
+                break;
+            }
+        }
+    }
+
+    System.out.println("=====================");
+    if (encontrado == null) {
+        System.out.println("Nenhum item encontrado com o ID: " + idBuscado);
+    } else {
+        System.out.println("Item encontrado:");
+        System.out.println(encontrado);
+    }
+}
 
     //Cadastro de revista - Antônia
     private void cadastrarRevista() {
