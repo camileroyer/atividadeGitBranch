@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-
 public class Livro extends Item {
     private String editora;
     private int anoPublicacao;
