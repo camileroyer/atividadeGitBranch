@@ -4,11 +4,12 @@ public class Cd extends Item {
     private String generoMusical;
     private String[] faixas;
 
-    public Cd(String nome, String generoMusical, String[] faixas) {
-        super(0, nome, 0);
-        this.generoMusical = generoMusical;
-        this.faixas = faixas;
-    }
+    public Cd(int id, String nome, String generoMusical, String[] faixas) {
+    super(id, nome, 0); 
+    this.generoMusical = generoMusical;
+    this.faixas = faixas;
+}
+    
 
     public String getGeneroMusical() {
         return generoMusical;
