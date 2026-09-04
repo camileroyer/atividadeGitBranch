@@ -69,7 +69,7 @@ public class App {
             System.out.print("Digite o nome da faixa " + (i + 1) + ": ");
             faixas[i] = entrada.nextLine();
         }
-        Cd novoCd = new Cd(nome, generoMusical, faixas);
+        new Cd(nome, generoMusical, faixas);
     }
 
     private void cadastrarDvd() {
