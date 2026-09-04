@@ -3,9 +3,11 @@ import java.util.*;
 public class App {
     private Scanner entrada;
     private ArrayList<Dvd> listaDvd;
+    private ArrayList<Revista> listaRevista;
 
     public App() {
-        entrada = new Scanner(System.in); 
+        entrada = new Scanner(System.in);
+        listaRevista = new ArrayList<Revista>();
     }
 
     public void executar() {
@@ -30,10 +32,11 @@ public class App {
                     cadastrarDvd();
                     break;
                 case 4:
-                    //cadastrarRevista();
+                    cadastrarRevista();
                     break;
                 case 5:
-                    //pesquisarItemEspecifico();
+                    pesquisarRevistaPorAssunto();
+                    break;
                 case 6:
                     //pesquisarID()
                 default:
@@ -50,7 +53,7 @@ public class App {
         System.out.println("[2] Cadastrar CD");
         System.out.println("[3] Cadastrar DVD");
         System.out.println("[4] Cadastrar revista");
-        System.out.println("[5] Pesquisar por item específico");
+        System.out.println("[5] Pesquisar revista por assunto");
         System.out.println("[6] Pesquisar por ID");
     }
 
@@ -102,4 +105,75 @@ public class App {
     System.out.println("=====================");
     System.out.println("DVD cadastrado com sucesso!");
     }
+
+    //Cadastro de revista - Antônia
+    private void cadastrarRevista() {
+        System.out.println("=====================");
+        System.out.println("Cadastrar uma Revista: ");
+        System.out.print("Digite o ID: ");
+        int id = entrada.nextInt();
+        entrada.nextLine();
+        System.out.print("Digite o nome: ");
+        String nome = entrada.nextLine();
+        System.out.print("Digite a data de aquisição: ");
+        int dataAquisicao = entrada.nextInt();
+        entrada.nextLine();
+        System.out.print("Digite o ano de publicação: ");
+        int anoPublicacao = entrada.nextInt();
+        entrada.nextLine();
+        System.out.print("Digite o volume: ");
+        String volume = entrada.nextLine();
+        System.out.print("Digite a editora: ");
+        String editora = entrada.nextLine();
+
+        Revista novaRevista = new Revista(id, nome, dataAquisicao, anoPublicacao, volume, editora);
+    
+        System.out.println("\n Cadastro dos Autores: ");
+        while (true) {
+            System.out.print("Digite o nome de um autor (ENTER para finalizar): ");
+            String autor = entrada.nextLine();
+            if (autor.trim().isEmpty()) { 
+                break;
+            }
+            novaRevista.adicionarAutor(autor);
+        }
+
+        System.out.println("\n Cadastro dos Assuntos tratados: ");
+        while (true) {
+            System.out.print("Digite um assunto tratado na revista (ENTER para finalizar): ");
+            String assunto = entrada.nextLine();
+            if (assunto.trim().isEmpty()) { 
+                break;
+            }
+            novaRevista.adicionarAssunto(assunto);
+        }
+
+        listaRevista.add(novaRevista);
+        System.out.println("=====================");
+        System.out.println("Revista cadastrada com sucesso!");
+    }
+
+    private void pesquisarRevistaPorAssunto() {
+        System.out.println("=====================");
+        System.out.print("Digite o assunto que deseja pesquisar: ");
+        String assuntoBuscado = entrada.nextLine();
+
+        ArrayList<Revista> encontradas = new ArrayList<Revista>();
+        for (Revista revista : listaRevista) {
+            if (revista.trataDoAssunto(assuntoBuscado)) {
+                encontradas.add(revista);
+            }
+        }
+
+        System.out.println("=====================");
+        if (encontradas.isEmpty()) {
+            System.out.println("Nenhuma revista encontrada para o assunto: " + assuntoBuscado);
+        } else {
+            System.out.println("Revistas encontradas:");
+            for (Revista revista : encontradas) {
+                System.out.println(revista);
+            }
+        }
+    }
+
 }
